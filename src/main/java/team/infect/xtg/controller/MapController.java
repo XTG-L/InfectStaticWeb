@@ -1,5 +1,6 @@
 package team.infect.xtg.controller;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import team.infect.xtg.bean.Directory;
 import team.infect.xtg.bean.Log;
 import team.infect.xtg.bean.Region;
@@ -18,11 +19,11 @@ import java.util.List;
 public class MapController {
 
     @RequestMapping(value = "map", method = RequestMethod.GET)
-    public String map(Model model) throws IOException, ParseException {
+    public String map(Model model, @RequestParam("date") String date) throws IOException, ParseException {
         Directory directory = new Directory("src/main/log/");
         DirectoryDAO directoryDAO = new DirectoryDAO();
         directoryDAO.sortFiles(directory);
-        List<Log> logs = directoryDAO.getLogList(directory);
+        List<Log> logs = directoryDAO.getLogList(directory, date);
         LogDAO logDAO = new LogDAO();
         List<Region> regions = logDAO.getRegionList(logs);
         model.addAttribute("regions", regions);
