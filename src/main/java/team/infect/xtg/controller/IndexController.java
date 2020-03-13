@@ -16,17 +16,18 @@ import java.text.ParseException;
 import java.util.List;
 
 @Controller
-public class IndexController {
-
-    @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String map(Model model, @RequestParam("date") String date) throws IOException, ParseException {
-        Directory directory = new Directory("src/main/log/");
-        DirectoryDAO directoryDAO = new DirectoryDAO();
-        directoryDAO.sortFiles(directory);
-        List<Log> logs = directoryDAO.getLogList(directory, date);
-        LogDAO logDAO = new LogDAO();
-        List<Region> regions = logDAO.getRegionList(logs);
-        model.addAttribute("regions", regions);
+@RequestMapping("user")
+public class UserController {
+    @RequestMapping("/list")
+    public String getUserList(ModelMap map){
+        List<testUser> list = new ArrayList<User>;
+        for(int i=0;i<5;i++){
+            testUser u=new testUser();
+            u.setId(i+1);
+            u.setName("牛"+i);
+            list.add(u);
+        }
+        map.addAttribte("list",list)
         return "index";
     }
 }
