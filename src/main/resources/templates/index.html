@@ -5,6 +5,8 @@
     <title>Index</title>
 </head>
 <body>
-
+<div th:each="message : ${#messages}">
+    <p th:text="${message}"></p>
+</div>
 </body>
-</html>
+<html>
