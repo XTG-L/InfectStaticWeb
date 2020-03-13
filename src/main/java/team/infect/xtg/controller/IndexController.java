@@ -1,4 +1,4 @@
-package team.infect.controller;
+package team.infect.xtg.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
