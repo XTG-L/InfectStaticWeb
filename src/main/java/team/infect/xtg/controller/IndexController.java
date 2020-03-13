@@ -14,14 +14,17 @@ import team.infect.xtg.dao.LogDAO;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.ArrayList;
+
+import team.infect.xtg.model.testUser
 
 @Controller
 @RequestMapping("user")
-public class UserController {
+public class IndexController {
     @RequestMapping("/list")
     public String getUserList(ModelMap map){
-        List<testUser> list = new ArrayList<User>;
-        for(int i=0;i<5;i++){
+        List<testUser> list = new ArrayList<testUser>;
+        for(int i=0;i<2;i++){
             testUser u=new testUser();
             u.setId(i+1);
             u.setName("牛"+i);
