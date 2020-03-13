@@ -14,23 +14,19 @@ import team.infect.xtg.dao.LogDAO;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.ArrayList;
-
-import team.infect.xtg.model.testUser
 
 @Controller
-@RequestMapping("user")
 public class IndexController {
-    @RequestMapping("/list")
-    public String getUserList(ModelMap map){
-        List<testUser> list = new ArrayList<testUser>;
-        for(int i=0;i<2;i++){
-            testUser u=new testUser();
-            u.setId(i+1);
-            u.setName("牛"+i);
-            list.add(u);
-        }
-        map.addAttribte("list",list)
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public String map(Model model, @RequestParam("date") String date) throws IOException, ParseException {
+        Directory directory = new Directory("src/main/log/");
+        DirectoryDAO directoryDAO = new DirectoryDAO();
+        directoryDAO.sortFiles(directory);
+        List<Log> logs = directoryDAO.getLogList(directory, date);
+        LogDAO logDAO = new LogDAO();
+        List<Region> regions = logDAO.getRegionList(logs);
+        model.addAttribute("regions", regions);
         return "index";
     }
 }
