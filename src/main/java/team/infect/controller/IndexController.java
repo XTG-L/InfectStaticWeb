@@ -34,7 +34,6 @@ public class IndexController {
         directoryDAO.sortFiles(directory);
         logs = directoryDAO.getLogList(directory);
         regions = logDAO.getRegionList(logs);
-        regionDAO.complete(regions);
     }
 
     @RequestMapping("index")
