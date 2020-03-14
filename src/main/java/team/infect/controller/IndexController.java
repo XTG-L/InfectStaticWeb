@@ -24,7 +24,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("/choseDate")
+    @RequestMapping("index/choseDate")
     public String choseController(Model model, @RequestParam String date) throws IOException, ParseException {
         RegionDAO regionDAO = new RegionDAO();
         List<Region> regions = regionDAO.getRegions(date);
