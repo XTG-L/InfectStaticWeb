@@ -1,5 +1,6 @@
 package team.infect.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +18,12 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-
     @RequestMapping("index")
     public String dataController(Model model, @RequestParam String date) throws IOException, ParseException {
         RegionDAO regionDAO = new RegionDAO();
         List<Region> regions = regionDAO.getRegions(date);
         model.addAttribute("regions", regions);
-        JSONObject jsonObject=(JSONObject) JSONObject.toJSON(regions);
+        JSONArray jsonArray = (JSONArray) JSONArray.toJSON(regions);
         return "index";
     }
 

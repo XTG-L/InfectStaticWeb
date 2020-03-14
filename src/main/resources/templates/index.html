@@ -47,33 +47,24 @@
             <td><font size="10" color="1bb2bb">55477</font></td>
             <td><font size="10" color="5a5757">3073</font></td>
         </tr>
-        <tr hidden th:each="region : ${regions}" th:unless="${regions} == null">
-            <td th:text="${region.getName()}"></td>
-            <td th:text="'ip:' + ${region.ip}"></td>
-            <td th:text="'sp:' + ${region.sp}"></td>
-            <td th:text="'dead:' + ${region.dead}"></td>
-            <td th:text="'cure:' + ${region.cure}"></td>
-        </tr>
     </table>
 
     <div id="container" class="centerItem"></div>
 
     <script type="text/javascript" th:inline="javascript">
-        //json test
-        for(var k in [[${jsonObject}]]){
-            alert([[${jsonObject}]][k]);
-        }
-        // 全国省份列表
-        /*<![CDATA[*/
-        var dataMap;
-        // for (var i = 0; i < [ [${regions.size()}] ]; i++) {
-        //     var n = [ [${regions[i].getName()}] ]
-        //     var v = [ [${regions[i].countIp()}] ]
-        //     var region = {"name":n, "value":v}
-        //     dataMap.push(region);
-        // }
 
-        /*]]*/
+        // 全国省份列表
+        var dataMap = [];
+
+        var regions = [[${regions}]];
+        var regionName = regions[0].name;
+        var regionIp = regions[0].ip;
+        for (var region in regions) {
+            var regionName = region.name;
+            var regionIp = region.ip;
+            var data = {name : regionName, value: regionIp};
+            dataMap.push(data);
+        }
         // 绘制图表，准备数据
         var option = {
             tooltip: {

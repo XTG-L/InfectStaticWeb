@@ -6,10 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Region {
+    @JSONField
     String name;
+    @JSONField
     List<Integer> ipList, spList, cureList, deadList;
     @JSONField
-    int ip, sp, cure, dead;
+    int ip;
+    @JSONField
+    int sp;
+    @JSONField
+    int cure;
+    @JSONField
+    int dead;
 
     public Region() {};
 
@@ -21,24 +29,30 @@ public class Region {
         deadList = new ArrayList<>();
     }
 
+    @JSONField
     public String getName() {
         return this.name;
     }
 
+    @JSONField
     public List<Integer> getIp() {
         return this.ipList;
     }
 
+    @JSONField
     public List<Integer> getSp() {
         return this.spList;
     }
 
+    @JSONField
     public List<Integer>getCure() {
         return this.cureList;
     }
 
+    @JSONField
     public List<Integer> getDead() { return this.deadList; }
 
+    @JSONField
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Region) {
@@ -51,6 +65,7 @@ public class Region {
     /**
      * 统计指定地区指定类型的数值总数
      */
+    @JSONField
     public void count() {
         for (int num : this.ipList) {
             ip += num;
