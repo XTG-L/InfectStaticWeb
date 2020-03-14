@@ -10,7 +10,6 @@ import team.infect.dao.RegionDAO;
 import team.infect.pojo.Directory;
 import team.infect.pojo.Log;
 import team.infect.pojo.Region;
-import team.infect.pojo.Type;
 
 import java.io.IOException;
 import java.text.ParseException;

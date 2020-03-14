@@ -47,9 +47,9 @@
             <td><font size="10" color="1bb2bb">55477</font></td>
             <td><font size="10" color="5a5757">3073</font></td>
         </tr>
-        <il th:text="${para}"></il>
+        <il hidden th:text="${para}"></il>
         <br/>
-        <il th:each="log : ${logs}">
+        <il hidden th:each="log : ${logs}">
             <il th:text="${log.getName()}"></il>
             <br/>
         </il>
@@ -68,12 +68,12 @@
         // 全国省份列表
         /*<![CDATA[*/
         var dataMap;
-        for (var i = 0; i < [ [${regions.size()}] ]; i++) {
-            var n = [ [${regions[i].getName()}] ]
-            var v = [ [${regions[i].countIp()}] ]
-            var region = {name:n, value:v}
-            dataMap.push(region);
-        }
+        // for (var i = 0; i < [ [${regions.size()}] ]; i++) {
+        //     var n = [ [${regions[i].getName()}] ]
+        //     var v = [ [${regions[i].countIp()}] ]
+        //     var region = {"name":n, "value":v}
+        //     dataMap.push(region);
+        // }
 
         /*]]*/
         // 绘制图表，准备数据
