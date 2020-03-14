@@ -39,9 +39,9 @@ public class IndexController {
 
     @RequestMapping("index")
     public String dataController(Model model, @RequestParam String date) throws IOException, ParseException {
-        logs = directoryDAO.getLogList(directory, date);
-        regions = logDAO.getRegionList(logs);
-        regionDAO.complete(regions);
+        logs = directoryDAO.getLogList(directory, date); //获取指定日期前的日志文件列表
+        regions = logDAO.getRegionList(logs); //将日志文件列表转换为地区列表
+        regionDAO.complete(regions); //补全所有地区，不包括全国统计数据
         model.addAttribute("regions", regions);
         model.addAttribute("logs",logs);
         model.addAttribute("para", date + ".log.txt");
