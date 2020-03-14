@@ -58,7 +58,11 @@
 
     <div id="container" class="centerItem"></div>
 
-    <script th:inline="javascript">
+    <script type="text/javascript" th:inline="javascript">
+        //json test
+        for(var k in [[${jsonObject}]]){
+            alert([[${jsonObject}]][k]);
+        }
         // 全国省份列表
         /*<![CDATA[*/
         var dataMap;

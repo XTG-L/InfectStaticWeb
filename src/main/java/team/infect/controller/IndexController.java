@@ -1,5 +1,6 @@
 package team.infect.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import team.infect.dao.RegionDAO;
 import team.infect.pojo.Region;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -21,6 +23,7 @@ public class IndexController {
         RegionDAO regionDAO = new RegionDAO();
         List<Region> regions = regionDAO.getRegions(date);
         model.addAttribute("regions", regions);
+        JSONObject jsonObject=(JSONObject) JSONObject.toJSON(regions);
         return "index";
     }
 
