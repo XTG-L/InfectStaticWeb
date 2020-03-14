@@ -1,5 +1,6 @@
 package team.infect.controller;
 
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +22,28 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String indexController(Model model) throws IOException, ParseException {
-        Directory directory = new Directory("src/main/log/");
-        DirectoryDAO directoryDAO = new DirectoryDAO();
+    Directory directory;
+    DirectoryDAO directoryDAO;
+    List<Log> logs;
+    LogDAO logDAO;
+    List<Region> regions;
+    RegionDAO regionDAO;
+
+    public IndexController() throws IOException, ParseException {
+        directory = new Directory("src/main/log/");
+        directoryDAO = new DirectoryDAO();
+        logDAO = new LogDAO();
+        regionDAO = new RegionDAO();
         directoryDAO.sortFiles(directory);
-        List<Log> logs = directoryDAO.getLogList(directory);
-        LogDAO logDAO = new LogDAO();
-        List<Region> regions = logDAO.getRegionList(logs);
-        RegionDAO regionDAO = new RegionDAO();
+        logs = directoryDAO.getLogList(directory);
+        regions = logDAO.getRegionList(logs);
+        regionDAO.complete(regions);
+    }
+
+    @RequestMapping("index")
+    public String dataController(Model model, @RequestParam String date) throws IOException, ParseException {
+        logs = directoryDAO.getLogList(directory, date);
+        regions = logDAO.getRegionList(logs);
         regionDAO.complete(regions);
         model.addAttribute("regions", regions);
         Type[] types = {Type.ip, Type.sp, Type.dead, Type.cure};
