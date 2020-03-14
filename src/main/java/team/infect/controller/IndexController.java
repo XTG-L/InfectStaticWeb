@@ -1,5 +1,6 @@
 package team.infect.controller;
 
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import java.util.List;
 public class IndexController {
 
     @RequestMapping("index")
-    public String dataController(Model model) throws IOException, ParseException {
+    public String indexController(Model model) throws IOException, ParseException {
         RegionDAO regionDAO = new RegionDAO();
         List<Region> regions = regionDAO.getRegions();
         model.addAttribute("regions", regions);
@@ -24,7 +25,7 @@ public class IndexController {
     }
 
     @RequestMapping("/choseDate")
-    public String dataController(Model model, @RequestParam String date) throws IOException, ParseException {
+    public String choseController(Model model, @RequestParam String date) throws IOException, ParseException {
         RegionDAO regionDAO = new RegionDAO();
         List<Region> regions = regionDAO.getRegions(date);
         model.addAttribute("regions", regions);
