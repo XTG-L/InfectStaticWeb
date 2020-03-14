@@ -1,8 +1,12 @@
 package team.infect.dao;
 
+import team.infect.pojo.Directory;
+import team.infect.pojo.Log;
 import team.infect.pojo.Region;
 import team.infect.pojo.Type;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 public class RegionDAO {
@@ -43,5 +47,19 @@ public class RegionDAO {
             if (!regions.contains(region))
                 regions.add(region);
         }
+    }
+
+    public List<Region> getRegions(String date) throws IOException, ParseException {
+        Directory directory = new Directory("src/main/log/");
+        DirectoryDAO directoryDAO = new DirectoryDAO();
+        LogDAO logDAO = new LogDAO();
+        RegionDAO regionDAO = new RegionDAO();
+        directoryDAO.sortFiles(directory);
+        List<Log> logs = directoryDAO.getLogList(directory);
+        List<Region> regions = logDAO.getRegionList(logs);
+        logs = directoryDAO.getLogList(directory, date); //获取指定日期前的日志文件列表
+        regions = logDAO.getRegionList(logs); //将日志文件列表转换为地区列表
+        regionDAO.complete(regions); //补全所有地区，不包括全国统计数据
+        return regions;
     }
 }
