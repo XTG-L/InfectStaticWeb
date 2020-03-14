@@ -13,10 +13,6 @@ public class Directory {
         this.files = directory.list();
     }
 
-    public File getDirectory() {
-        return this.directory;
-    }
-
     public String getPath() {
         return this.path;
     }

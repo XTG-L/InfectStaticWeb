@@ -21,7 +21,10 @@
     <table width="960px" align="center">
         <tr>
             <td><font size="2" color="#808080">数据更新至2020.03.14 00:00</font></td>
-            <td><input type="text" name="dateTime" placeholder="请输入想查看的日期"><input type="submit" value="确定"></td>
+            <td>
+                <input type="text" name="dateTime" placeholder="请输入想查看的日期">
+                <input type="submit" value="确定">
+            </td>
             <td><a href="https://www.baidu.com"><font size="2" color="#808080">更多信息</font></a></td>
         </tr>
         <tr>
@@ -44,7 +47,14 @@
             <td><font size="10" color="1bb2bb">55477</font></td>
             <td><font size="10" color="5a5757">3073</font></td>
         </tr>
-        <tr th:each="region : ${regions}">
+        <il th:text="${para}"></il>
+        <br/>
+        <il th:each="log : ${logs}">
+            <il th:text="${log.getName()}"></il>
+            <br/>
+        </il>
+        <tr hidden th:each="region : ${regions}" th:unless="${regions} == null">
+            <td th:text="${region.getName()}"></td>
             <td th:text="'ip:' + ${region.countIp()}"></td>
             <td th:text="'sp:' + ${region.countSp()}"></td>
             <td th:text="'dead:' + ${region.countDead()}"></td>
@@ -58,6 +68,12 @@
         // 全国省份列表
         /*<![CDATA[*/
         var dataMap;
+        for (var i = 0; i < [ [${regions.size()}] ]; i++) {
+            var n = [ [${regions[i].getName()}] ]
+            var v = [ [${regions[i].countIp()}] ]
+            var region = {name:n, value:v}
+            dataMap.push(region);
+        }
 
         /*]]*/
         // 绘制图表，准备数据

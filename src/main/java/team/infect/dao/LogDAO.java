@@ -21,6 +21,7 @@ public class LogDAO {
      */
     public List<Region> getRegionList(List<Log> logs) throws IOException {
         List<Region> regions = new ArrayList<>();
+        if (logs == null) return regions;
         FileInputStream fileInputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
@@ -32,9 +33,12 @@ public class LogDAO {
             while ((line = bufferedReader.readLine()) != null)
                 handleLine(line, regions);
         }
-        bufferedReader.close();
-        inputStreamReader.close();
-        fileInputStream.close();
+        if (bufferedReader != null)
+            bufferedReader.close();
+        if (inputStreamReader != null)
+            inputStreamReader.close();
+        if (fileInputStream != null)
+            fileInputStream.close();
         return regions;
     }
 

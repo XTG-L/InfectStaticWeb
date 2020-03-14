@@ -1,10 +1,8 @@
 package team.infect.controller;
 
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import team.infect.dao.DirectoryDAO;
 import team.infect.dao.LogDAO;
@@ -46,8 +44,8 @@ public class IndexController {
         regions = logDAO.getRegionList(logs);
         regionDAO.complete(regions);
         model.addAttribute("regions", regions);
-        Type[] types = {Type.ip, Type.sp, Type.dead, Type.cure};
-        model.addAttribute("types", types);
+        model.addAttribute("logs",logs);
+        model.addAttribute("para", date + ".log.txt");
         return "index";
     }
 
