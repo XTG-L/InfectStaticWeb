@@ -55,10 +55,10 @@
         </il>
         <tr hidden th:each="region : ${regions}" th:unless="${regions} == null">
             <td th:text="${region.getName()}"></td>
-            <td th:text="'ip:' + ${region.countIp()}"></td>
-            <td th:text="'sp:' + ${region.countSp()}"></td>
-            <td th:text="'dead:' + ${region.countDead()}"></td>
-            <td th:text="'cure:' + ${region.countIp()}"></td>
+            <td th:text="'ip:' + ${region.ip}"></td>
+            <td th:text="'sp:' + ${region.sp}"></td>
+            <td th:text="'dead:' + ${region.dead}"></td>
+            <td th:text="'cure:' + ${region.cure}"></td>
         </tr>
     </table>
 
@@ -95,9 +95,12 @@
                 x: 'left',
                 y: 'center',
                 splitList: [
-                    {start: 10000},{start: 1000, end: 9999},
-                    {start: 100, end: 999},{start: 10, end: 99},
-                    {start: 1, end: 9},{start: 0, end: 0},
+                    {start: 10000},
+                    {start: 1000, end: 9999},
+                    {start: 100, end: 999},
+                    {start: 10, end: 99},
+                    {start: 1, end: 9},
+                    {start: 0, end: 0},
                 ],
                 color: ['#660208', '#8C0D0D', '#CC2929','#FF7B69' ,'#FFAA85' , '#F8F9FA']
             },

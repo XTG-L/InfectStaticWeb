@@ -3,7 +3,6 @@ package team.infect.dao;
 import team.infect.pojo.Region;
 import team.infect.pojo.Type;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RegionDAO {
