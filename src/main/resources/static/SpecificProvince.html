@@ -18,10 +18,9 @@
 
 <table width="960px" align="center">
     <tr>
-        <td><font size="5">XX省/市</font></td>
+        <td id="poc"><font size="5">XX省/市</font></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td><a href="index.html">返回全国地图界面</a></td>
     </tr>
     <tr>
         <td><font size="2" color="#808080">数据更新至2020.03.14 00:00</font></td>
@@ -43,9 +42,16 @@
     </tr>
 </table>
 
+<script>
+    var url=decodeURI(window.location.href);
+    var argsIndex=url.split("?省份=");
+    var arg=argsIndex[1];
+    document.getElementById("poc").innerHTML=arg;
+</script>
+
 <div id="container" class="centerItem"></div>
 
-<script src="../../../../web/js/echarts.min.js"></script>
+<script src="echarts.min.js"></script>
 <script>
     function randomData() {
         return Math.round(Math.random()*500);
