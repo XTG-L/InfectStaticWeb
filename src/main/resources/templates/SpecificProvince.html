@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>具体疫情可视化</title>
+    <style>
+        .centerItem {
+            width: 1280px;
+            height: 600px;
+            background:white;
+            margin: 20px auto 0 auto;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <table width="960px" align="center">
+        <tr>
+            <td><font size="5">XX省/市</font></td>
+        </tr>
+        <tr>
+            <td><font size="2" color="#808080">数据更新至2020.03.14 00:00</font></td>
+            <td><input type="text" name="dateTime" value="请输入想查看的日期"><input type="submit" value="确定"></td>
+            <td><a href="https://www.baidu.com"><font size="2" color="#808080">更多信息</font></a></td>
+        </tr>
+        <tr>
+            <td><font size="4">现有确诊</font></td>
+            <td><font size="4">累计确诊</font></td>
+            <td><font size="4">累计治愈</font></td>
+            <td><font size="4">累计死亡</font></td>
+        </tr>
+        <tr>
+            <td><font size="10" color="ff6a57">21180</font></td>
+            <td><font size="10" color="ef9f2e">67666</font></td>
+            <td><font size="10" color="476ea2">43527</font></td>
+            <td><font size="10" color="476ea2">2959</font></td>
+        </tr>
+    </table>
+
+    <div id="container" class="centerItem"></div>
+
+    <script src="../static/echarts.min.js"></script>
+    <script>
+        function randomData() {
+            return Math.round(Math.random()*500);
+        }
+        option = {
+            // 标题
+            title: {
+                text: '具体疫情统计',
+            },
+            // x轴
+            xAxis: {
+                data: ['1.31','2.05','2.10','2.15','2.20','2.25','3.01',], // x轴坐标名称
+            },
+            // y轴
+            yAxis: {},
+            // 提示框，鼠标悬浮交互时的信息提示
+            tooltip: {
+                show: true, // 是否显示
+                trigger: 'axis', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+            },
+            legend: {
+                data: ['新增确诊', '累计确诊','累计治愈','累计死亡']
+            },
+            // 指定图标的类型
+            series: [
+                // 第一条折线图
+                {
+                    name: '新增确诊', // 系列名称
+                    type: 'line', // 类型：线
+                    data: [randomData(),randomData(),randomData(),randomData(),randomData(),randomData(),randomData()], // 数据
+                    markPoint: {
+                        // 特殊标注文字
+                        label: {
+                            normal: {
+                                show: true,
+                                //position: 'top', // 文字位置
+                                // 显示的文字
+                                formatter: '{b}：{c}',
+                            }
+                        },
+                        // 触发操作
+                        tooltip: {
+                            show: true, // 是否显示
+                            formatter: '{b}：{c}', // 内容格式器 a（系列名称），b（类目值），c（数值）, d（无）
+                            trigger: 'item', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+                        },
+                    },
+                    markLine: {
+                        data: [{
+                            type: 'average',
+                            name: '平均值',
+                            itemStyle: {
+                                normal: {
+                                    color: 'orange'
+                                }
+                            }
+                        }]
+                    },
+                    // 折线图圆点
+                    label: {
+                        normal: {
+                            show: true,
+                            //position: 'bottom', // 文字位置
+                            // 显示的文字
+                            formatter: '{c}',
+                            textStyle: {
+                                color: '#000' // 文字颜色
+                            }
+                        }
+                    },
+                },
+                // 第二条折线图
+                {
+                    name: '累计确诊', // 系列名称
+                    type: 'line', // 类型：线
+                    data: [randomData(),randomData(),randomData(),randomData(),randomData(),randomData(),randomData()], // 数据
+                    markPoint: {
+                        // 触发操作
+                        tooltip: {
+                            show: true, // 是否显示
+                            formatter: '{b}：{c}', // 内容格式器 a（系列名称），b（类目值），c（数值）, d（无）
+                            trigger: 'item', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+                        },
+                    },
+                    markLine: {
+                        data: [{
+                            type: 'average',
+                            name: '平均值',
+                            itemStyle: {
+                                normal: {
+                                    color: 'green'
+                                }
+                            }
+                        }]
+                    },
+                    // 折线图圆点
+                    label: {
+                        normal: {
+                            show: true,
+                            //position: 'bottom', // 文字位置
+                            // 显示的文字
+                            formatter: '{c}',
+                            textStyle: {
+                                color: '#000' // 文字颜色
+                            }
+                        }
+                    },
+                },
+                // 第三条折线图
+                {
+                    name: '累计治愈', // 系列名称
+                    type: 'line', // 类型：线
+                    data: [randomData(),randomData(),randomData(),randomData(),randomData(),randomData(),randomData()], // 数据
+                    markPoint: {
+                        // 特殊标注文字
+                        label: {
+                            normal: {
+                                show: true,
+                                //position: 'top', // 文字位置
+                                // 显示的文字
+                                formatter: '{b}：{c}',
+                            }
+                        },
+                        // 触发操作
+                        tooltip: {
+                            show: true, // 是否显示
+                            formatter: '{b}：{c}', // 内容格式器 a（系列名称），b（类目值），c（数值）, d（无）
+                            trigger: 'item', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+                        },
+                    },
+                    markLine: {
+                        data: [{
+                            type: 'average',
+                            name: '平均值',
+                            itemStyle: {
+                                normal: {
+                                    color: 'green'
+                                }
+                            }
+                        }]
+                    },
+                    // 折线图圆点
+                    label: {
+                        normal: {
+                            show: true,
+                            //position: 'bottom', // 文字位置
+                            // 显示的文字
+                            formatter: '{c}',
+                            textStyle: {
+                                color: '#000' // 文字颜色
+                            }
+                        }
+                    },
+                },
+                // 第四条折线图
+                {
+                    name: '累计死亡', // 系列名称
+                    type: 'line', // 类型：线
+                    data: [randomData(),randomData(),randomData(),randomData(),randomData(),randomData(),randomData()], // 数据
+                    markPoint: {
+                        // 特殊标注文字
+                        label: {
+                            normal: {
+                                show: true,
+                                //position: 'top', // 文字位置
+                                // 显示的文字
+                                formatter: '{b}：{c}',
+                            }
+                        },
+                        // 触发操作
+                        tooltip: {
+                            show: true, // 是否显示
+                            formatter: '{b}：{c}', // 内容格式器 a（系列名称），b（类目值），c（数值）, d（无）
+                            trigger: 'item', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+                        },
+                    },
+                    markLine: {
+                        data: [{
+                            type: 'average',
+                            name: '平均值',
+                            itemStyle: {
+                                normal: {
+                                    color: 'green'
+                                }
+                            }
+                        }]
+                    },
+                    // 折线图圆点
+                    label: {
+                        normal: {
+                            show: true,
+                            //position: 'bottom', // 文字位置
+                            // 显示的文字
+                            formatter: '{c}',
+                            textStyle: {
+                                color: '#000' // 文字颜色
+                            }
+                        }
+                    },
+                }
+            ]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('container'));
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

@@ -1,138 +1,147 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org/">
 
 <head>
     <meta charset="utf-8">
     <title>疫情统计WEB应用</title>
     <style>
         .centerItem {
-            width: 1400px;
+            width: 1080px;
             height: 900px;
             background:white;
             margin: 20px auto 0 auto;
         }
     </style>
-
     <script type="text/javascript" th:src="@{/jquery-1.11.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/echarts.min.js}"></script>
     <script type="text/javascript" th:src="@{/china.js}"></script>
 </head>
 
 <body>
-<table width="960px" align="center">
-    <tr>
-        <td><font size="2" color="#808080">数据更新至2020.03.14 00:00</font></td>
-        <td><input type="text" name="dateTime" value="请输入想查看的日期"><input type="submit" value="确定"></td>
-        <td><a href="https://www.baidu.com"><font size="2" color="#808080">更多信息</font></a></td>
-    </tr>
-    <tr>
-        <td><font size="4">现有确诊</font></td>
-        <td><font size="4">现有疑似</font></td>
-        <td><font size="4">现有重症</font></td>
-    </tr>
-    <tr>
-        <td><font size="10" color="ff6a57">22264</font></td>
-        <td><font size="10" color="ef9f2e">502</font></td>
-        <td><font size="10" color="476ea2">5489</font></td>
-    </tr>
-    <tr>
-        <td><font size="4">累计确诊</font></td>
-        <td><font size="4">累计治愈</font></td>
-        <td><font size="4">累计死亡</font></td>
-    </tr>
-    <tr>
-        <td><font size="10" color="e83139">80814</font></td>
-        <td><font size="10" color="1bb2bb">55477</font></td>
-        <td><font size="10" color="5a5757">3073</font></td>
-    </tr>
-</table>
+    <table width="960px" align="center">
+        <tr>
+            <td><font size="2" color="#808080">数据更新至2020.03.14 00:00</font></td>
+            <td>
+                <input type="text" name="dateTime" placeholder="请输入想查看的日期">
+                <input type="submit" value="确定">
+            </td>
+            <td><a href="https://www.baidu.com"><font size="2" color="#808080">更多信息</font></a></td>
+        </tr>
+        <tr>
+            <td><font size="4">现有确诊</font></td>
+            <td><font size="4">现有疑似</font></td>
+            <td><font size="4">现有重症</font></td>
+        </tr>
+        <tr>
+            <td><font size="10" color="ff6a57">22264</font></td>
+            <td><font size="10" color="ef9f2e">502</font></td>
+            <td><font size="10" color="476ea2">5489</font></td>
+        </tr>
+        <tr>
+            <td><font size="4">累计确诊</font></td>
+            <td><font size="4">累计治愈</font></td>
+            <td><font size="4">累计死亡</font></td>
+        </tr>
+        <tr>
+            <td><font size="10" color="e83139">80814</font></td>
+            <td><font size="10" color="1bb2bb">55477</font></td>
+            <td><font size="10" color="5a5757">3073</font></td>
+        </tr>
+        <il hidden th:text="${para}"></il>
+        <br/>
+        <il hidden th:each="log : ${logs}">
+            <il th:text="${log.getName()}"></il>
+            <br/>
+        </il>
+        <tr hidden th:each="region : ${regions}" th:unless="${regions} == null">
+            <td th:text="${region.getName()}"></td>
+            <td th:text="'ip:' + ${region.countIp()}"></td>
+            <td th:text="'sp:' + ${region.countSp()}"></td>
+            <td th:text="'dead:' + ${region.countDead()}"></td>
+            <td th:text="'cure:' + ${region.countIp()}"></td>
+        </tr>
+    </table>
 
-<div id="container" class="centerItem"></div>
+    <div id="container" class="centerItem"></div>
 
-<script th:inline="javascript">
+    <script th:inline="javascript">
+        // 全国省份列表
+        /*<![CDATA[*/
+        var dataMap;
+        // for (var i = 0; i < [ [${regions.size()}] ]; i++) {
+        //     var n = [ [${regions[i].getName()}] ]
+        //     var v = [ [${regions[i].countIp()}] ]
+        //     var region = {"name":n, "value":v}
+        //     dataMap.push(region);
+        // }
 
-    //随机数填充测试数据
-    function randomData() {
-        return Math.round(Math.random()*500);
-    }
-    // 全国省份列表
-    var dataMap = [{ name: '北京' , value: '0'}, { name: '天津', value: randomData() }, { name: '上海', value: randomData() },
-        { name: '重庆', value: randomData() }, { name: '河北', value: randomData() }, { name: '河南', value: randomData() },
-        { name: '云南', value: randomData() }, { name: '辽宁', value: randomData() }, { name: '黑龙江', value: randomData() },
-        { name: '湖南', value: randomData() }, { name: '安徽', value: randomData() }, { name: '山东', value: randomData() },
-        { name: '新疆', value: randomData() }, { name: '江苏', value: randomData() }, { name: '浙江', value: randomData() },
-        { name: '江西', value: randomData() }, { name: '湖北', value: randomData() }, { name: '广西', value: randomData() },
-        { name: '甘肃', value: randomData() }, { name: '山西', value: randomData() }, { name: '内蒙古', value: randomData() },
-        { name: '陕西', value: randomData() }, { name: '吉林', value: randomData() }, { name: '福建', value: randomData() },
-        { name: '贵州', value: randomData() }, { name: '广东', value: randomData() }, { name: '青海', value: randomData() },
-        { name: '西藏', value: randomData() }, { name: '四川', value: randomData() }, { name: '宁夏', value: randomData() },
-        { name: '海南', value: randomData() }, { name: '台湾', value: randomData() }, { name: '香港', value: randomData() },
-        { name: '澳门', value: randomData() }, { name: '南海诸岛', value: '0' }]
-    // 绘制图表，准备数据
-    var option = {
-        tooltip: {
-            formatter: function (params) {
-                var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px">当前确诊人数:' + params.value +
-                    '</p><p style="font-size:14px">单击查看此该省(市)详细疫情统计</p>'
-                return info;
+        /*]]*/
+        // 绘制图表，准备数据
+        var option = {
+            tooltip: {
+                formatter: function (params) {
+                    var info = '<p style="font-size:18px">'+ params.name + '</p>' +
+                        '<p style="font-size:14px">当前确诊人数:' + params.value + '</p>' +
+                        '<p style="font-size:14px">单击查看此该省(市)详细疫情统计</p>'
+                    return info;
+                },
+                backgroundColor: "#fcca42",//提示标签背景颜色
+                textStyle: { color: "#fff" } //提示标签字体颜色
             },
-            backgroundColor: "#fcca42",//提示标签背景颜色
-            textStyle: { color: "#fff" } //提示标签字体颜色
-        },
 
-        //左侧小导航图标
-        visualMap: {
-            show : true,
-            x: 'left',
-            y: 'center',
-            splitList: [
-                {start: 10000},{start: 1000, end: 9999},
-                {start: 100, end: 999},{start: 10, end: 99},
-                {start: 1, end: 9},{start: 0, end: 0},
-            ],
-            color: ['#660208', '#8C0D0D', '#CC2929','#FF7B69' ,'#FFAA85' , '#F8F9FA']
-        },
+            //左侧小导航图标
+            visualMap: {
+                show : true,
+                x: 'left',
+                y: 'center',
+                splitList: [
+                    {start: 10000},{start: 1000, end: 9999},
+                    {start: 100, end: 999},{start: 10, end: 99},
+                    {start: 1, end: 9},{start: 0, end: 0},
+                ],
+                color: ['#660208', '#8C0D0D', '#CC2929','#FF7B69' ,'#FFAA85' , '#F8F9FA']
+            },
 
-        series: [
-            {
-                name: '中国',
-                type: 'map',
-                mapType: 'china',
-                selectedMode: 'multiple',
-                label: {
-                    normal: {
-                        show: true,//显示省份标签
-                        // textStyle:{color:"#c71585"}//省份标签字体颜色
+            series: [
+                {
+                    name: '中国',
+                    type: 'map',
+                    mapType: 'china',
+                    selectedMode: 'multiple',
+                    label: {
+                        normal: {
+                            show: true,//显示省份标签
+                            // textStyle:{color:"#c71585"}//省份标签字体颜色
+                        },
+                        emphasis: {
+                            show: true,//对应的鼠标悬浮效果
+                            // textStyle:{color:"#800080"}
+                        }
                     },
-                    emphasis: {
-                        show: true,//对应的鼠标悬浮效果
-                        // textStyle:{color:"#800080"}
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        borderWidth: .5,//区域边框宽度
-                        // borderColor: '#009fe8',//区域边框颜色
-                        // areaColor:"#ffefd5",//区域颜色
+                    itemStyle: {
+                        normal: {
+                            borderWidth: .5,//区域边框宽度
+                            // borderColor: '#009fe8',//区域边框颜色
+                            // areaColor:"#ffefd5",//区域颜色
+                        },
+                        emphasis: {
+                            borderWidth: .5,
+                            borderColor: '#4b0082',
+                            areaColor: "#ffff80",
+                        }
                     },
-                    emphasis: {
-                        borderWidth: .5,
-                        borderColor: '#4b0082',
-                        areaColor: "#ffff80",
-                    }
-                },
-                data: dataMap
-            }
-        ]
-    };
-    //初始化echarts实例
-    var myChart = echarts.init(document.getElementById('container'));
-    //使用制定的配置项和数据显示图表
-    myChart.setOption(option);
-    myChart.on('click',function (params) {
-        window.location.href="SpecificProvince.html?省份="+params.data.name;
-    })
-</script>
+                    data: dataMap
+                }
+            ]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('container'));
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+        myChart.on('click',function (params) {
+            window.location.href="SpecificProvince.html";
+        })
+    </script>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
-package team.infect.xtg.dao;
+package team.infect.dao;
 
-import team.infect.xtg.bean.Directory;
-import team.infect.xtg.bean.Log;
+import team.infect.pojo.Directory;
+import team.infect.pojo.Log;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -30,15 +30,12 @@ public class DirectoryDAO {
      */
     public void rmAfter(String[] files, String date) {
         if (files.length == 0) return;
-        List<String> filesList = new ArrayList<>(Arrays.asList(files));
-        List<String> tmpList = new ArrayList<>(Arrays.asList(files));
-        for (String file : tmpList) {
-            if (date.compareTo(file) < 0) {
-                int index = filesList.indexOf(file);
-                filesList.set(index, "");
+        String[] temps = files.clone();
+        for (int i = 0; i <temps.length; i++) {
+            if (temps[i].compareTo(date + ".log.txt") > 0) {
+                files[i] = "";
             }
         }
-        filesList.toArray(files);
     }
 
     /**

@@ -1,4 +1,4 @@
-package team.infect.xtg.bean;
+package team.infect.pojo;
 
 import java.io.File;
 
@@ -11,10 +11,6 @@ public class Directory {
         this.directory = new File(path);
         this.path = path;
         this.files = directory.list();
-    }
-
-    public File getDirectory() {
-        return this.directory;
     }
 
     public String getPath() {
