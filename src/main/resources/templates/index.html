@@ -47,12 +47,6 @@
             <td><font size="10" color="1bb2bb">55477</font></td>
             <td><font size="10" color="5a5757">3073</font></td>
         </tr>
-        <il hidden th:text="${para}"></il>
-        <br/>
-        <il hidden th:each="log : ${logs}">
-            <il th:text="${log.getName()}"></il>
-            <br/>
-        </il>
         <tr hidden th:each="region : ${regions}" th:unless="${regions} == null">
             <td th:text="${region.getName()}"></td>
             <td th:text="'ip:' + ${region.ip}"></td>
