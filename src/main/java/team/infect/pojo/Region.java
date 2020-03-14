@@ -1,11 +1,14 @@
 package team.infect.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Region {
     String name;
     List<Integer> ipList, spList, cureList, deadList;
+    @JSONField
     int ip, sp, cure, dead;
 
     public Region() {};
