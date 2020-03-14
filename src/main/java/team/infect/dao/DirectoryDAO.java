@@ -39,17 +39,6 @@ public class DirectoryDAO {
     }
 
     /**
-     * 读取指定文件夹类中的日志文件，返回日志列表
-     * @param directory 指定文件夹类
-     * @return 日志列表
-     * @throws ParseException Log类构造函数进行类型转换
-     * @throws IOException Log类构造函数中读取日志文件
-     */
-    public List<Log> getLogList(Directory directory) throws ParseException, IOException {
-        return getLogList(directory, null);
-    }
-
-    /**
      * 读取指定文件夹类中指定日期前的日志文件，返回日志列表
      * @param directory 指定文件夹类
      * @param date 指定日期

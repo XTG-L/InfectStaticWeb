@@ -22,7 +22,7 @@
         <tr>
             <td><font size="2" color="#808080">数据更新至2020.03.14 00:00</font></td>
             <td>
-                <input type="text" name="dateTime" placeholder="请输入想查看的日期">
+                <input type="text" th:action="@{choseDate}" th:href="index" name="dateTime" placeholder="请输入想查看的日期">
                 <input type="submit" value="确定">
             </td>
             <td><a href="https://www.baidu.com"><font size="2" color="#808080">更多信息</font></a></td>
@@ -54,21 +54,20 @@
     <script type="text/javascript" th:inline="javascript">
 
         // 全国省份列表
-        var dataMap = [];
-        var regions = [[${regions}]];
-        var regionName = regions[0].name;
-        var regionIp = regions[0].ip;
-        for (var region in regions) {
-            var regionName = region.name;
-            var regionIp = region.ip;
-            var data = {name : regionName, value: regionIp};
+        let dataMap = [];
+        let regions = [[${regions}]];
+        for (let i = 0; i<regions.length; i++) {
+            let regionName = String(regions[i].name);
+            let regionIp = String(regions[i].ip);
+            let data = {name: regionName, value: regionIp};
+            console.log(data);
             dataMap.push(data);
         }
         // 绘制图表，准备数据
         var option = {
             tooltip: {
                 formatter: function (params) {
-                    var info = '<p style="font-size:18px">'+ params.name + '</p>' +
+                    let info = '<p style="font-size:18px">'+ params.name + '</p>' +
                         '<p style="font-size:14px">当前确诊人数:' + params.value + '</p>' +
                         '<p style="font-size:14px">单击查看此该省(市)详细疫情统计</p>'
                     return info;

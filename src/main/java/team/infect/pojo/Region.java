@@ -35,22 +35,42 @@ public class Region {
     }
 
     @JSONField
-    public List<Integer> getIp() {
+    public List<Integer> getIpList() {
         return this.ipList;
     }
 
     @JSONField
-    public List<Integer> getSp() {
+    public List<Integer> getSpList() {
         return this.spList;
     }
 
     @JSONField
-    public List<Integer>getCure() {
+    public List<Integer>getCureList() {
         return this.cureList;
     }
 
     @JSONField
-    public List<Integer> getDead() { return this.deadList; }
+    public List<Integer> getDeadList() { return this.deadList; }
+
+    @JSONField
+    public int getIp() {
+        return this.ip;
+    }
+
+    @JSONField
+    public int getSp() {
+        return this.sp;
+    }
+
+    @JSONField
+    public int getDead() {
+        return this.dead;
+    }
+
+    @JSONField
+    public int getCure() {
+        return this.cure;
+    }
 
     @JSONField
     @Override

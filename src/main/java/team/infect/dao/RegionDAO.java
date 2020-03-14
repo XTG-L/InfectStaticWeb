@@ -32,13 +32,13 @@ public class RegionDAO {
         int index = regions.indexOf(tmp);
         Region region = regions.get(index);
         if (type.equals(Type.ip))
-            region.getIp().add(num);
+            region.getIpList().add(num);
         else if (type.equals(Type.sp))
-            region.getSp().add(num);
+            region.getSpList().add(num);
         else if (type.equals(Type.cure))
-            region.getCure().add(num);
+            region.getCureList().add(num);
         else if (type.equals(Type.dead))
-            region.getDead().add(num);
+            region.getDeadList().add(num);
     }
 
     public void complete(List<Region> regions) {
@@ -49,16 +49,18 @@ public class RegionDAO {
         }
     }
 
+    public List<Region> getRegions() throws IOException, ParseException {
+        return getRegions(null);
+    }
+
     public List<Region> getRegions(String date) throws IOException, ParseException {
         Directory directory = new Directory("src/main/log/");
         DirectoryDAO directoryDAO = new DirectoryDAO();
         LogDAO logDAO = new LogDAO();
         RegionDAO regionDAO = new RegionDAO();
         directoryDAO.sortFiles(directory);
-        List<Log> logs = directoryDAO.getLogList(directory);
-        List<Region> regions = logDAO.getRegionList(logs);
-        logs = directoryDAO.getLogList(directory, date); //获取指定日期前的日志文件列表
-        regions = logDAO.getRegionList(logs); //将日志文件列表转换为地区列表
+        List<Log> logs = directoryDAO.getLogList(directory, date); //获取指定日期前的日志文件列表
+        List<Region> regions = logDAO.getRegionList(logs); //将日志文件列表转换为地区列表
         regionDAO.complete(regions); //补全所有地区，不包括全国统计数据
         return regions;
     }
