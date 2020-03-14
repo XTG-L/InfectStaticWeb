@@ -1,5 +1,6 @@
 package team.infect.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import team.infect.pojo.Directory;
 import team.infect.pojo.Log;
 import team.infect.pojo.Region;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -47,6 +49,13 @@ public class IndexController {
         model.addAttribute("logs",logs);
         model.addAttribute("para", date + ".log.txt");
         return "index";
+    }
+
+    @RequestMapping("/test")
+    public void test(HttpServletResponse response) throws IOException{
+        JSONObject jsonObject=(JSONObject) JSONObject.toJSON(regions);
+        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().write(jsonObject.toJSONString());
     }
 
 }

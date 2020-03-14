@@ -49,13 +49,17 @@ public class Region {
      * 统计指定地区指定类型的数值总数
      */
     public void count() {
-        for (int num : this.ipList)
+        for (int num : this.ipList) {
             ip += num;
-        for (int num : this.spList)
+        }
+        for (int num : this.spList) {
             sp += num;
-        for (int num : this.deadList)
+        }
+        for (int num : this.deadList) {
             dead += num;
-        for (int num : this.cureList)
+        }
+        for (int num : this.cureList) {
             cure += num;
+        }
     }
 }
