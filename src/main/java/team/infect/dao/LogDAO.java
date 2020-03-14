@@ -39,6 +39,8 @@ public class LogDAO {
             inputStreamReader.close();
         if (fileInputStream != null)
             fileInputStream.close();
+        for (Region region : regions)
+            region.count();
         return regions;
     }
 
@@ -50,34 +52,34 @@ public class LogDAO {
      */
     public String[] handleLine(String line, List<Region> regions) {
         String[] items = null;
-        RegionDAO regionController = new RegionDAO();
+        RegionDAO regionDAO = new RegionDAO();
         if (line.matches("(\\S+) 新增 感染患者 (\\d+)人")) {
             items = line.split(" 新增 感染患者 |人");
-            regionController.update(regions, items[0], Type.ip, Integer.parseInt(items[1]));
+            regionDAO.update(regions, items[0], Type.ip, Integer.parseInt(items[1]));
         } else if (line.matches("(\\S+) 新增 疑似患者 (\\d+)人")) {
             items = line.split(" 新增 疑似患者 |人");
-            regionController.update(regions, items[0], Type.sp, Integer.parseInt(items[1]));
+            regionDAO.update(regions, items[0], Type.sp, Integer.parseInt(items[1]));
         } else if (line.matches("(\\S+) 感染患者 流入 (\\S+) (\\d+)人")) {
             items = line.split(" 感染患者 流入 | |人");
-            regionController.update(regions, items[0], Type.ip, Integer.parseInt(items[2]));
-            regionController.update(regions, items[1], Type.ip, Integer.parseInt("-" + items[1]));
+            regionDAO.update(regions, items[0], Type.ip, Integer.parseInt(items[2]));
+            regionDAO.update(regions, items[1], Type.ip, Integer.parseInt("-" + items[1]));
         } else if (line.matches("(\\S+) 疑似患者 流入 (\\S+) (\\d+)人")) {
             items = line.split(" 疑似患者 流入 | |人");
-            regionController.update(regions, items[0], Type.sp, Integer.parseInt(items[2]));
-            regionController.update(regions, items[0], Type.sp, Integer.parseInt("-" + items[2]));
+            regionDAO.update(regions, items[0], Type.sp, Integer.parseInt(items[2]));
+            regionDAO.update(regions, items[0], Type.sp, Integer.parseInt("-" + items[2]));
         } else if (line.matches("(\\S+) 死亡 (\\d+)人")) {
             items = line.split(" 死亡 |人");
-            regionController.update(regions, items[0], Type.dead, Integer.parseInt(items[1]));
+            regionDAO.update(regions, items[0], Type.dead, Integer.parseInt(items[1]));
         } else if (line.matches("(\\S+) 治愈 (\\d+)人")) {
             items = line.split(" 治愈 |人");
-            regionController.update(regions, items[0], Type.cure, Integer.parseInt(items[1]));
+            regionDAO.update(regions, items[0], Type.cure, Integer.parseInt(items[1]));
         } else if (line.matches("(\\S+) 疑似患者 确诊感染 (\\d+)人")) {
             items = line.split(" 疑似患者 确诊感染 |人");
-            regionController.update(regions, items[0], Type.ip, Integer.parseInt(items[1]));
-            regionController.update(regions, items[0], Type.sp, Integer.parseInt("-" + items[1]));
+            regionDAO.update(regions, items[0], Type.ip, Integer.parseInt(items[1]));
+            regionDAO.update(regions, items[0], Type.sp, Integer.parseInt("-" + items[1]));
         } else if (line.matches("(\\S+) 排除 疑似患者 (\\d+)人")) {
             items = line.split(" 排除 疑似患者 |人");
-            regionController.update(regions, items[0], Type.sp, Integer.parseInt("-" + items[1]));
+            regionDAO.update(regions, items[0], Type.sp, Integer.parseInt("-" + items[1]));
         }
         return items;
     }
