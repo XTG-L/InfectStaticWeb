@@ -46,29 +46,33 @@ public class Region {
 
     public int countIp() {
         int sum = 0;
-        for (int num : this.ip)
+        for (int num : this.ip) {
             sum += num;
+        }
         return sum;
     }
 
     public int countSp() {
         int sum = 0;
-        for (int num : this.sp)
+        for (int num : this.sp) {
             sum += num;
+        }
         return sum;
     }
 
     public int countDead() {
         int sum = 0;
-        for (int num : this.dead)
+        for (int num : this.dead) {
             sum += num;
+        }
         return sum;
     }
 
     public int countCure() {
         int sum = 0;
-        for (int num : this.cure)
+        for (int num : this.cure) {
             sum += num;
+        }
         return sum;
     }
     /**
@@ -78,18 +82,26 @@ public class Region {
      */
     public int count(Type type) {
         int sum = 0;
-        if (type.equals(Type.ip))
-            for (int num : this.ip)
+        if (type.equals(Type.ip)) {
+            for (int num : this.ip) {
                 sum += num;
-        else if (type.equals(Type.sp))
-            for (int num : this.sp)
+            }
+        }
+        else if (type.equals(Type.sp)) {
+            for (int num : this.sp) {
                 sum += num;
-        else if (type.equals(Type.dead))
-            for (int num : this.dead)
+            }
+        }
+        else if (type.equals(Type.dead)) {
+            for (int num : this.dead) {
                 sum += num;
-        else if (type.equals(Type.cure))
-            for (int num : this.cure)
+            }
+        }
+        else if (type.equals(Type.cure)) {
+            for (int num : this.cure) {
                 sum += num;
+            }
+        }
         return sum;
     }
 }
