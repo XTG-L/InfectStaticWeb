@@ -1,4 +1,4 @@
-package team.infect.xtg.bean;
+package team.infect.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.List;
 public class Region {
     String name;
     List<Integer> ip, sp, cure, dead;
+
+    public Region() {};
 
     public Region(String name) {
         this.name = name;
@@ -42,25 +44,51 @@ public class Region {
         return super.equals(obj);
     }
 
+    public int countIp() {
+        int sum = 0;
+        for (int num : this.ip)
+            sum += num;
+        return sum;
+    }
+
+    public int countSp() {
+        int sum = 0;
+        for (int num : this.sp)
+            sum += num;
+        return sum;
+    }
+
+    public int countDead() {
+        int sum = 0;
+        for (int num : this.dead)
+            sum += num;
+        return sum;
+    }
+
+    public int countCure() {
+        int sum = 0;
+        for (int num : this.cure)
+            sum += num;
+        return sum;
+    }
     /**
      * 获取指定地区指定类型的数值总数
-     * @param region 指定地区
      * @param type 指定类型
      * @return 数值总数
      */
-    public int count(Region region, Type type) {
+    public int count(Type type) {
         int sum = 0;
         if (type.equals(Type.ip))
-            for (int num : region.getIp())
+            for (int num : this.ip)
                 sum += num;
         else if (type.equals(Type.sp))
-            for (int num : region.getSp())
+            for (int num : this.sp)
                 sum += num;
         else if (type.equals(Type.dead))
-            for (int num : region.getDead())
+            for (int num : this.dead)
                 sum += num;
         else if (type.equals(Type.cure))
-            for (int num : region.getCure())
+            for (int num : this.cure)
                 sum += num;
         return sum;
     }

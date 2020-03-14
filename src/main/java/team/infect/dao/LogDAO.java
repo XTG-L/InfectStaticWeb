@@ -1,8 +1,8 @@
-package team.infect.xtg.dao;
+package team.infect.dao;
 
-import team.infect.xtg.bean.Log;
-import team.infect.xtg.bean.Region;
-import team.infect.xtg.bean.Type;
+import team.infect.pojo.Log;
+import team.infect.pojo.Region;
+import team.infect.pojo.Type;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

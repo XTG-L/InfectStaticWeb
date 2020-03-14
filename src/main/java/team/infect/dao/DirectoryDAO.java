@@ -1,7 +1,7 @@
-package team.infect.xtg.dao;
+package team.infect.dao;
 
-import team.infect.xtg.bean.Directory;
-import team.infect.xtg.bean.Log;
+import team.infect.pojo.Directory;
+import team.infect.pojo.Log;
 
 import java.io.IOException;
 import java.text.ParseException;

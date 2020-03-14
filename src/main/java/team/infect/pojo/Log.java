@@ -1,4 +1,4 @@
-package team.infect.xtg.bean;
+package team.infect.pojo;
 
 import java.io.IOException;
 import java.text.ParseException;
